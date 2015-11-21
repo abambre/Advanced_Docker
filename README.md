@@ -26,9 +26,9 @@ Screecast demostrating this goal:
 
   - Redis server side VM which spawns two containers using Docker Compose. [docker-compose.yml](scripts/docker-compose1.yml) which creates one redis container and server side ambassador container linked to redis container. 
   
-  - Redis client side VM which spawns client side ambassador [docker-compose.yml](scripts/docker-compose2.yml) which linkes to the redis-cli docker instance.
+  - Redis client side VM which spawns the client side ambassador [docker-compose.yml](scripts/docker-compose2.yml) which get linked by the redis client docker instance.
 
-  - To unable networking between server and client side docker instances, we need to make two networking configuration related changes. 
+  - To enable networking between server and client side docker instances, we need to make two networking configuration related changes. 
     - Unable public bridge networking in [Vagrantfile](scripts/Vagrantfile)
         ```config.vm.network "public_network"```
     - Add routing entry in iptables to accept the traffic for docker containers on server side.
