@@ -3,7 +3,7 @@
 ###Goal 1
 **_File IO: To create a container for a legacy application. You succeed, but you need access to a file that the legacy app creates._**
 
-=> To achieve this goal I have created a [DockerFile](scripts/DockerFile_Production) which runs the command to create file and using socat , maps the file access over the port 9001.
+=> To achieve this goal I have created a [DockerFile](scripts/Dockerfile_goal1) which runs the command to create file and using socat , maps the file access over the port 9001.
 
   To Build and run this docker image ,
 
