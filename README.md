@@ -5,16 +5,15 @@
 
 => To achieve this goal I have created a [DockerFile](scripts/Dockerfile_goal1) which runs the command to create file and using socat , maps the file access over the port 9001.
 
-  To Build and run this docker image ,
-
-    docker build  -t socat_container  . 
-    docker run -d --name socket socat_container
-
-
-Then I linked the created container with the new container which access file data using curl.
-
+  - To Build and run this docker image ,
+```
+  docker build  -t socat_container  . 
+  docker run -d --name socket socat_container
+```
+  - Then I linked the created container with the new container which access file data using curl.
+```
     docker run -i -t --rm --link socket:socket tutum/curl sh -c 'curl $SOCKET_PORT_9001_TCP_ADDR:$SOCKET_PORT_9001_TCP_PORT'
-
+```
 Screecast demostrating this goal:
 
 ![image](images/goal1.gif)
@@ -42,12 +41,37 @@ Screecast demostrating this goal:
 
     ```docker-compose up -d```
 
+ - To verify the redis client setup, link it with client-side ambassador and perform get/set operation.
 
-To verify the redis client setup, link it with client-side ambassador and perform get/set operation.
-
-    docker run -i -t --rm --link redis_ambassador_client:redis relateiq/redis-cli
+  ```docker run -i -t --rm --link redis_ambassador_client:redis relateiq/redis-cli```
     
-
-Screecast demostrating this goal:
+Screecast demonstrating this goal:
 
 ![image](images/goal2.gif)
+
+
+###Goal 3
+**_Docker Deploy: Extend the deployment workshop to run a docker deployment process._**
+
+ -  Follow the [Deployment workshop](https://github.com/CSC-DevOps/Deployment) to create endpoints for green/blue deployement.
+ -  Create a private docker registry running on port 5000 using,
+  ``` docker run -d -p 5000:5000 --restart=always --name registry registry:2```
+
+ -  Create a client side git hook [pre-push](scripts/pre-push) which dockerized the given application, builds it and push it to the private registery running on port 5000.
+ 
+ -  Update the post-receive hooks in the green.git/hooks with [green_hook](scripts/post-receive-green) and blue.git/hooks [blue_hook](scripts/post-receive-blue)  respectively. 
+ 
+ -  Add the remote endpoints 
+  ```
+    git remote add blue file://$ROOT/blue.git
+    git remote add green file://$ROOT/green.git
+  ```
+ - Setup can be triggered and verified using 
+  ```
+    git push green master
+    git push blue master  
+  ```
+Screecast demostrating this goal:
+
+![image](images/goal3.gif)
+
