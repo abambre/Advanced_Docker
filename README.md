@@ -30,14 +30,17 @@ Screecast demostrating this goal:
 
   - To enable networking between server and client side docker instances, we need to make two networking configuration related changes. 
     - Unable public bridge networking in [Vagrantfile](scripts/Vagrantfile)
+    
         ```config.vm.network "public_network"```
+
     - Add routing entry in iptables to accept the traffic for docker containers on server side.
+    
         ```sudo ip addr add 192.168.0.99/8 dev eth1```
 
   
   To run this docker image on server/client,
 
-    docker-compose up -d
+    ```docker-compose up -d```
 
 
 To verify the redis client setup, link it with client-side ambassador and perform get/set operation.
