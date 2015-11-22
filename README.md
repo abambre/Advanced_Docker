@@ -55,22 +55,26 @@ Screecast demonstrating this goal:
 
  -  Follow the [Deployment workshop](https://github.com/CSC-DevOps/Deployment) to create endpoints for green/blue deployement.
  -  Create a private docker registry running on port 5000 using,
+ 
   ``` docker run -d -p 5000:5000 --restart=always --name registry registry:2```
 
- -  Create a client side git hook [pre-push](scripts/pre-push) which dockerized the given application, builds it and push it to the private registery running on port 5000.
+ -  Create a client side git hook [pre-push](scripts/pre-push) which dockerizes the given application, builds it and push it to the private registery running on port 5000.
  
  -  Update the post-receive hooks in the green.git/hooks with [green_hook](scripts/post-receive-green) and blue.git/hooks [blue_hook](scripts/post-receive-blue)  respectively. 
  
  -  Add the remote endpoints 
+ 
   ```
     git remote add blue file://$ROOT/blue.git
     git remote add green file://$ROOT/green.git
   ```
  - Setup can be triggered and verified using 
+ 
   ```
     git push green master
     git push blue master  
   ```
+
 Screecast demostrating this goal:
 
 ![image](images/goal3.gif)
