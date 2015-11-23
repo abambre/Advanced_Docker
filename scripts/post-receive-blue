@@ -1,0 +1,18 @@
+#!/bin/bash -x
+
+
+echo "Post receive"
+
+docker pull localhost:5000/ncsu:blue-latest  
+
+docker stop blue-app  
+
+docker rm blue-app
+
+docker rmi localhost:5000/ncsu:blue-current  
+
+docker tag localhost:5000/ncsu:blue-latest localhost:5000/ncsu:blue-current
+
+docker run -p 50100:8080 -d --name blue-app localhost:5000/ncsu:blue-current 
+
+

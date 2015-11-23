@@ -1,0 +1,15 @@
+#!/bin/bash -x
+
+
+echo "Pre push"
+
+
+# pwd 
+
+# echo $1
+
+docker build -t ncsu-app-$1 .
+
+docker tag -f ncsu-app-$1 localhost:5000/ncsu:$1-latest
+
+docker push localhost:5000/ncsu:$1-latest

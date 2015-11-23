@@ -1,0 +1,18 @@
+#!/bin/bash -x
+
+
+echo "Post receive"
+
+docker pull localhost:5000/ncsu:green-latest  
+
+docker stop green-app  
+
+docker rm green-app
+
+docker rmi localhost:5000/ncsu:green-current  
+
+docker tag localhost:5000/ncsu:green-latest localhost:5000/ncsu:green-current
+
+docker run -p 50101:8080 -d --name green-app localhost:5000/ncsu:green-current 
+
+
